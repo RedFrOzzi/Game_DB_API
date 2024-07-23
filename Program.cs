@@ -1,8 +1,13 @@
+using Game_DB_API.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<GameDbContext>(opt =>
+    opt.UseNpgsql(
+        builder.Configuration.GetConnectionString("GameDB")));
 
 builder.Services.AddCors(options =>
 {
